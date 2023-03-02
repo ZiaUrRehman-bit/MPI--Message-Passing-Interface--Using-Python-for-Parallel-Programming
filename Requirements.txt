@@ -1,0 +1,10 @@
+
+Required Libraries
+
+1. Download and install msmpi for windows
+
+https://www.microsoft.com/en-us/download/details.aspx?id=57467
+
+2. Install mpi4py 
+
+pip install mpi4py
