@@ -7,10 +7,12 @@ size = MPI.COMM_WORLD.size
 
 # Create a random matrix and vector
 matrix = np.ones((10, 10), dtype="uint8")*2
-vector = np.random.rand(10)
+vector = np.ones(10, dtype="uint8")
 
 # Divide the matrix into rows and distribute them among the processes
 local_rows = np.array_split(matrix, size)[rank]
+if rank == 1:
+    print(local_rows)
 
 # Compute the local dot product
 local_result = np.dot(local_rows, vector)
