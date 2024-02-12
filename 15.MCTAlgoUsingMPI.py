@@ -10,9 +10,9 @@ from mpi4py import MPI
 
 def mct_parallel(jobs, rank, size):
     # Calculate the number of jobs to be processed by each MPI process
-    chunk_size = len(jobs) // size
-    start_index = rank * chunk_size
-    end_index = start_index + chunk_size if rank < size - 1 else len(jobs)
+    chunk_size = len(jobs) // size  # 100//8 = 12, 
+    start_index = rank * chunk_size # 0 * 12 = 0, 1*12 = 12,... 84
+    end_index = start_index + chunk_size if rank < size - 1 else len(jobs) # 0 + 12 if 0 < 8-1=7 else 100, 24, ... 100
 
     # Initialize metrics
     start_times = {}
@@ -71,7 +71,7 @@ rank = comm.Get_rank()
 size = comm.Get_size()
 
 # Read the dataset from the provided text file
-with open("C:/Users/Muhammad Nouman/Downloads/GoCJ_Dataset_100.txt", "r") as file:
+with open("GoCJ_Dataset_800.txt", "r") as file:
     dataset = [int(job) for job in file.read().split("\n")]
 
 # Create list of jobs
@@ -87,5 +87,5 @@ if rank == 0:
         print(f"Job {job_index}: Start Time: {start_times[job_index]}, Completion Time: {completion_times[job_index]}, Turnaround Time: {turnaround_times[job_index]}, Waiting Time: {waiting_times[job_index]}")
 
     print(f"Makespan: {makespan}")
-    print(f"Average Turnaround Time: {avg_turnaround_time}")
     print(f"Average Waiting Time: {avg_waiting_time}")
+    print(f"Average Turnaround Time: {avg_turnaround_time}")

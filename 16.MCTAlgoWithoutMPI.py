@@ -37,7 +37,7 @@ def mct_sequential(jobs):
     return start_times, completion_times, turnaround_times, waiting_times, makespan, avg_waiting_time, avg_turnaround_time
 
 # Read the dataset from the provided text file
-with open("C:/Users/Muhammad Nouman/Downloads/GoCJ_Dataset_100.txt", "r") as file:
+with open("GoCJ_Dataset_800.txt", "r") as file:
     dataset = [int(job) for job in file.read().split("\n")]
 
 # Create list of jobs
