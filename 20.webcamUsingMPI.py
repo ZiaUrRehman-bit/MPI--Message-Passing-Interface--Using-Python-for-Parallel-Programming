@@ -7,8 +7,8 @@ from ultralytics.utils.plotting import colors, Annotator
 model = YOLO("yolov8s.pt")
 names = model.model.names
 
-cam1 = cv2.VideoCapture(0)
-cam2 = cv2.VideoCapture(1)
+cam1 = cv2.VideoCapture(3)
+cam2 = cv2.VideoCapture(0)
 
 cTime = 0
 pTime = 0
