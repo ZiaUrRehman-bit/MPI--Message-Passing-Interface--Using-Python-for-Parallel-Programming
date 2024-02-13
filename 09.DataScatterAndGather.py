@@ -10,7 +10,8 @@ for i in range(size):
     data.append(i*2)
 
 # Scatter the data to all the processes
-local_data = MPI.COMM_WORLD.scatter(data, root=0)
+local_data = MPI.COMM_WORLD.scatter(data, root=0) # scatters the data array data to all processes in the MPI communicator.
+# Each process receives a portion of the data.
 
 # Perform some computation on the local data
 if rank == 0:

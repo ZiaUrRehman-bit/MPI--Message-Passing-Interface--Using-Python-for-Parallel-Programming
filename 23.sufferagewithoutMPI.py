@@ -1,6 +1,6 @@
-def mct_sequential(jobs):
+def sufferage_sequential(jobs):
     # Sort jobs based on their processing time (job size)
-    sorted_jobs = sorted(jobs, key=lambda x: x[1]) # jobs will be sorted based on their sizes.
+    sorted_jobs = sorted(jobs, key=lambda x: x[1])
     
     # Initialize metrics
     start_times = {}
@@ -9,17 +9,25 @@ def mct_sequential(jobs):
     waiting_times = {}
     makespan = 0
     
-    # Assign each job to the processor with the earliest completion time
-    current_time = 0
+    # Initialize the workload for each processor
+    processor_workloads = [0] * len(jobs)
+
+    # Assign each job to the processor with the earliest minimum completion time
     for job_index, job_size in sorted_jobs:
-        # Calculate start time
-        start_times[job_index] = current_time
+        # Find the processor with the minimum workload
+        min_workload = min(processor_workloads)
+        min_processor_index = processor_workloads.index(min_workload)
         
-        # Update completion time and makespan
-        completion_times[job_index] = current_time + job_size
-        current_time += job_size
+        # Calculate start time
+        start_times[job_index] = max(min_workload, makespan)
+        
+        # Update completion time and makespan for the selected processor
+        completion_times[job_index] = start_times[job_index] + job_size
         makespan = max(makespan, completion_times[job_index])
-    
+        
+        # Update the workload of the selected processor
+        processor_workloads[min_processor_index] += job_size
+
     # Calculate turnaround time and waiting time
     total_turnaround_time = 0
     total_waiting_time = 0
@@ -43,13 +51,13 @@ with open("GoCJ_Dataset_800.txt", "r") as file:
 # Create list of jobs
 jobs = [(i, size) for i, size in enumerate(dataset, start=1)]
 
-# Run MCT scheduling algorithm
-start_times, completion_times, turnaround_times, waiting_times, makespan, avg_waiting_time, avg_turnaround_time = mct_sequential(jobs)
+# Run Sufferage scheduling algorithm
+start_times, completion_times, turnaround_times, waiting_times, makespan, avg_waiting_time, avg_turnaround_time = sufferage_sequential(jobs)
 
+# Print the results
 for job_index, _ in sorted(start_times.items(), key=lambda x: x[1]):
     print(f"Job {job_index}: Start Time: {start_times[job_index]}, Completion Time: {completion_times[job_index]}, Turnaround Time: {turnaround_times[job_index]}, Waiting Time: {waiting_times[job_index]}")
 
 print(f"Makespan: {makespan}")
 print(f"Average Waiting Time: {avg_waiting_time}")
 print(f"Average Turnaround Time: {avg_turnaround_time}")
-
