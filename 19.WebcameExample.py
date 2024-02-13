@@ -1,5 +1,10 @@
 import cv2
 import time
+from ultralytics import YOLO
+from ultralytics.utils.plotting import colors, Annotator
+
+model = YOLO("yolov8s.pt")
+names = model.model.names
 
 cam1 = cv2.VideoCapture(0)
 cam2 = cv2.VideoCapture(1)
@@ -7,10 +12,22 @@ cam2 = cv2.VideoCapture(1)
 cTime = 0
 pTime = 0
 
+centerPoint = (10, 10)
+
 while True:
     success, frame1 = cam1.read()
     success2, frame2 = cam2.read()
 
+    results = model.predict(frame1)
+    boxes = results[0].boxes.xyxy.cpu()
+    clss = results[0].boxes.cls.cpu().tolist()
+
+    annotator = Annotator(frame1)
+
+    for box, cls in zip(boxes, clss):
+        annotator.box_label(box, label=names[int(cls)], color=colors(int(cls)))
+        annotator.visioneye(box, centerPoint)
+        
     cTime = time.time()
     fps = 1/(cTime-pTime)
     pTime = cTime
