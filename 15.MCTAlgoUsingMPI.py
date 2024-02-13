@@ -4,7 +4,7 @@
 # The name of the file determines the number of jobs within the file i.e.; GoCJ_Dataset_100 has the sizes of 100 jobs. The 
 # GoCJ dataset is accepted for publication in MDPI Data journal, the citation of the article will be provied very soon. Moreover, 
 # the GoCJ dataset (i..e named as Google-like realistic dataset) is used in the following research work of the author.
-
+# https://data.mendeley.com/datasets/b7bp6xhrcd/1
 
 from mpi4py import MPI
 
