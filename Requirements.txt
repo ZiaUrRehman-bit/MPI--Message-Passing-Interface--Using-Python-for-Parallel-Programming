@@ -1,5 +1,7 @@
 
-Required Libraries
+Installation Guide
+
+Installation on Windows
 
 1. Download and install msmpi for windows
 
@@ -8,3 +10,10 @@ https://www.microsoft.com/en-us/download/details.aspx?id=57467
 2. Install mpi4py 
 
 pip install mpi4py
+
+Installation on Ubuntu
+
+1.	Download openmpi from this link version 4.1.6 https://www.open-mpi.org/software/ompi/v4.1/ 
+2.	Follow this tutorial https://www.youtube.com/watch?v=E-fD6A8rFZk&ab_channel=HilmanAjidewanAdam 
+3.	At the end, activate your virtual environment and install python library for mpi 
+Pip install mpi4py.... in case if it shows error use conda install mpi4py 
